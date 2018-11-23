@@ -62,3 +62,24 @@ newArray.indices.reversed().forEach {
 
 
 print("Нечетные и делящиеся на 3 элементы массива newArray: \(newArray)")
+
+//5. * Написать функцию, которая добавляет в массив новое число Фибоначчи, и добавить при помощи нее 100 элементов.
+//Числа Фибоначчи определяются соотношениями Fn=Fn-1 + Fn-2.
+print("=== Task 05 ===")
+
+func fibo(_ n: UInt64) -> [UInt64] {
+    var fiboArray = [UInt64]()
+    var a: UInt64 = 0
+    var b: UInt64 = 1
+
+    for _ in 0..<n {
+        a += b
+        fiboArray.append(a)
+        b = a - b
+    }
+    return fiboArray
+}
+
+print(fibo(93))
+
+
