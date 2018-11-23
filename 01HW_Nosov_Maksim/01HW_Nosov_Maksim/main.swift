@@ -38,3 +38,14 @@ func isDividedByThree(_ num: Int) {
 }
 
 for i in 0...numberArray.count - 1 { isDividedByThree(numberArray[i]) }
+
+// 3. Создать возрастающий массив из 100 чисел.
+print("=== Task 03 ===")
+
+var newArray = [Int]()
+
+for i in 0..<100 {
+    newArray.append(i)
+}
+
+print("Элементы массива: \(newArray)")
