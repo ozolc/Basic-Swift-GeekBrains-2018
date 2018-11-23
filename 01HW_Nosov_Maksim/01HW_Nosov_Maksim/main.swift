@@ -29,15 +29,18 @@ for i in 0...numberArray.count - 1 {
 // 2. Написать функцию, которая определяет, делится ли число без остатка на 3.
 print("=== Task 02 ===")
 
-func isDividedByThree(_ num: Int) {
-    if num % 3 == 0 {
-        print("\(num) делится на 3 без остатка")
-    } else {
-        print("\(num) не делится на 3 без остатка")
-    }
+func isDividedByThree(_ num: Int) -> Bool {
+    if num % 3 == 0 { return true }
+    else { return false }
 }
 
-for i in 0...numberArray.count - 1 { isDividedByThree(numberArray[i]) }
+for i in 0...numberArray.count - 1 {
+    if isDividedByThree(numberArray[i]) {
+        print("\(numberArray[i]) делится на 3 без остатка")
+    } else {
+        print("\(numberArray[i]) не делится на 3 без остатка")
+    }
+}
 
 // 3. Создать возрастающий массив из 100 чисел.
 print("=== Task 03 ===")
@@ -48,4 +51,14 @@ for i in 0..<100 {
     newArray.append(i)
 }
 
-print("Элементы массива: \(newArray)")
+print("Элементы массива newArray: \(newArray)")
+
+//4. Удалить из этого массива все четные числа и все числа, которые не делятся на 3.
+print("=== Task 04 ===")
+
+newArray.indices.reversed().forEach {
+    if ( checkEven($0) || !isDividedByThree($0) ) { newArray.remove(at: $0) }
+}
+
+
+print("Нечетные и делящиеся на 3 элементы массива newArray: \(newArray)")
