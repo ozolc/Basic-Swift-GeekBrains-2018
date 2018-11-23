@@ -8,7 +8,10 @@
 
 import Foundation
 
+let numberArray = [3, 5, 1, 0, 7, 10, 2]
+
 // 1. Написать функцию, которая определяет, четное число или нет.
+print("=== Task 01 ===")
 
 func checkEven(_ num: Int) -> Bool {
     if num % 2 == 0 {
@@ -18,10 +21,20 @@ func checkEven(_ num: Int) -> Bool {
     }
 }
 
-let numberArray = [3, 5, 1, 0, 7, 10, 2]
-
 for i in 0...numberArray.count - 1 {
     if checkEven(numberArray[i]) { print ("Число \(numberArray[i]) - четное")}
     else { print ("Число \(numberArray[i]) - нечетное")}
 }
 
+// 2. Написать функцию, которая определяет, делится ли число без остатка на 3.
+print("=== Task 02 ===")
+
+func isDividedByThree(_ num: Int) {
+    if num % 3 == 0 {
+        print("\(num) делится на 3 без остатка")
+    } else {
+        print("\(num) не делится на 3 без остатка")
+    }
+}
+
+for i in 0...numberArray.count - 1 { isDividedByThree(numberArray[i]) }
