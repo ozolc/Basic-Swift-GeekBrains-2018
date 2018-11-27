@@ -20,76 +20,106 @@
 
 import Foundation
 
-enum EngineState {
-    case start, stop
+
+
+enum EngineState: String {
+    case start = "запущен", stop = "остановлен"
 }
 
-enum WindowState {
-    case open, close
+enum WindowState: String {
+    case open = "открыто", close = "закрыто"
 }
 
 enum TrunkAction {
     case load, unload
 }
 
+// создал только одну структуру для легкового автомобиля. Для грузовика, то же самое.
 struct Car {
     var brand: String
     var dateIssue: String
     var capacityTrunk: Int
-    var capacityTrunkFilled: Int {
-        get { return capacityTrunkFilled }
-        set (new) {
-//            let old = capacityTrunkFilled
-            if (new <= capacityTrunk) {
-                capacityTrunkFilled = new
-            } else {
-                print("Ошибка! Объем заполненности не может превышать номинальный объем багажника")
+    var capacityTrunkFilled: Int = 0 {
+         didSet {
+            if (capacityTrunkFilled > capacityTrunk) {
+                print("Объем превышает ёмкость багажника.")
+                capacityTrunkFilled = oldValue
+            } else if (capacityTrunkFilled < 0) {
+                print("Ошибка! Отрицательное значение.")
             }
         }
     }
     
     var engineState: EngineState
     var windowState: WindowState
-    
+
     mutating func engineAction(state: EngineState) -> Void {
         switch state {
         case .start:
             self.engineState = .start
+            print("Включен двигатель")
         case .stop:
             self.engineState = .stop
+            print("Двигатель выключен")
         }
     }
-    
-    mutating func windowction(state: WindowState) -> Void {
+
+    mutating func windowAction(state: WindowState) -> Void {
         switch state {
         case .open:
             self.windowState = .open
+            print("Окно открыто")
         case .close:
             self.windowState = .close
+            print("Окно закрыто")
         }
     }
     
+    mutating func loadAction(action state: TrunkAction, weight: Int) {
+        switch state {
+        case .load:
+            self.capacityTrunkFilled += weight
+        case .unload:
+            self.capacityTrunkFilled -= weight
+        }
+    }
+    
+    func getInfoAboutVehicle() {
+        print("\n====Информация об автомобиле====")
+        print("Автомобиль \(self.brand) выпуска \(dateIssue) загружен на \(self.capacityTrunkFilled) из \(self.capacityTrunk) возможных.\nДвигатель в состоянии \"\(self.engineState.rawValue)\".\nОкно \(self.windowState.rawValue)")
+        print("====\n")
+    }
 }
 
-//var car01 = Car(
-//    brand: "Honds",
-//    dateIssue: "01/02/2015",
-//    capacityTrunk: 100,
-//    capacityTrunkFilled: 0,
-//    engineState: .stop,
-//    windowState: .close)
+// Создаем экземпляры структруы
+var car01 = Car(
+    brand: "Honda",
+    dateIssue: "01/02/2015",
+    capacityTrunk: 100,
+    capacityTrunkFilled: 0,
+    engineState: .stop,
+    windowState: .close)
 
-var car01 = Car(brand: "Honda", dateIssue: "01/10/2016", capacityTrunk: 100, engineState: .stop, windowState: .close)
+var car02 = Car(
+    brand: "BMW",
+    dateIssue: "06/07/2013",
+    capacityTrunk: 120,
+    capacityTrunkFilled: 100,
+    engineState: .stop,
+    windowState: .open)
 
-print(car01.capacityTrunkFilled)
+car01.getInfoAboutVehicle()
+print("Попытка перегрузить автомобиль")
 car01.capacityTrunkFilled = 150
-print(car01.capacityTrunkFilled)
+car01.loadAction(action: .load, weight: 40)
+car01.engineAction(state: .start)
+car01.getInfoAboutVehicle()
 
-struct Truck {
-    var brand: String
-    var dateIssue: Date
-    var capacityTrunk: Int
-    var capacityTrunkFilled: Int
-    var engineState: EngineState
-    var windowState: WindowState
-}
+car02.getInfoAboutVehicle()
+print("Попытка присвоить отрицательное значение объема загруженности")
+car02.loadAction(action: .unload, weight: 150)
+car02.loadAction(action: .load, weight: 100)
+car02.windowAction(state: .close)
+car02.getInfoAboutVehicle()
+
+
