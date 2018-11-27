@@ -21,21 +21,69 @@
 import Foundation
 
 enum EngineState {
-    case started, stopped
+    case start, stop
 }
 
 enum WindowState {
-    case opened, closed
+    case open, close
+}
+
+enum TrunkAction {
+    case load, unload
 }
 
 struct Car {
     var brand: String
-    var dateIssue: Date
+    var dateIssue: String
     var capacityTrunk: Int
-    var capacityTrunkFilled: Int
+    var capacityTrunkFilled: Int {
+        get { return capacityTrunkFilled }
+        set (new) {
+//            let old = capacityTrunkFilled
+            if (new <= capacityTrunk) {
+                capacityTrunkFilled = new
+            } else {
+                print("Ошибка! Объем заполненности не может превышать номинальный объем багажника")
+            }
+        }
+    }
+    
     var engineState: EngineState
     var windowState: WindowState
+    
+    mutating func engineAction(state: EngineState) -> Void {
+        switch state {
+        case .start:
+            self.engineState = .start
+        case .stop:
+            self.engineState = .stop
+        }
+    }
+    
+    mutating func windowction(state: WindowState) -> Void {
+        switch state {
+        case .open:
+            self.windowState = .open
+        case .close:
+            self.windowState = .close
+        }
+    }
+    
 }
+
+//var car01 = Car(
+//    brand: "Honds",
+//    dateIssue: "01/02/2015",
+//    capacityTrunk: 100,
+//    capacityTrunkFilled: 0,
+//    engineState: .stop,
+//    windowState: .close)
+
+var car01 = Car(brand: "Honda", dateIssue: "01/10/2016", capacityTrunk: 100, engineState: .stop, windowState: .close)
+
+print(car01.capacityTrunkFilled)
+car01.capacityTrunkFilled = 150
+print(car01.capacityTrunkFilled)
 
 struct Truck {
     var brand: String
