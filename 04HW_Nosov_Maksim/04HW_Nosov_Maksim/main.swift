@@ -154,7 +154,7 @@ class SportCar: Car {
             self.stateOfTurboCharging = .on
             print("Турбонаддув активирован")
         } else {
-            self.stateOfTurboCharging = .on
+            self.stateOfTurboCharging = .off
             print("Турбонаддув отключен")
         }
     }
