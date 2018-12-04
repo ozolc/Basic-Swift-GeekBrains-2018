@@ -85,7 +85,7 @@ class TrunkCar: Car {
 
 extension TrunkCar: CustomStringConvertible {
         var description : String {
-            return "Грузовик \(self.brand) с цветом \(self.color.rawValue) имеет емкость бака равную \(self.capacityFuelTank). Статус прицепа - \(self.isHasTrailer.rawValue)\n"
+            return "Грузовик \(self.brand) с цветом \(self.color.rawValue) имеет емкость бака равную \(self.capacityFuelTank). Статус прицепа - \(self.isHasTrailer.rawValue)"
     }
 }
 
@@ -113,7 +113,7 @@ class SportCar: Car {
 
 extension SportCar: CustomStringConvertible {
     var description : String {
-        return "Спортивания машина \(self.brand) с цветом \(self.color.rawValue) имеет емкость бака равную \(self.capacityFuelTank). Наличие спойлера - \(self.isHasSpoiler.rawValue)\n"
+        return "Спортивная машина \(self.brand) с цветом \(self.color.rawValue) имеет емкость бака равную \(self.capacityFuelTank). Наличие спойлера - \(self.isHasSpoiler.rawValue)"
     }
 }
 
