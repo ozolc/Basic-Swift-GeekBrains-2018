@@ -19,31 +19,21 @@ enum Color: String {
     case red = "red", blue = "blue", white = "white", black = "black", green = "green"
 }
 
-enum Transmission {
-    case auto, manual
-}
-
 enum ActionWindow {
     case open, close
 }
 
-enum ActionDoor {
-    case open, close
+enum ActionEngine {
+    case start, stop
 }
 
 protocol Car {
     var brand: String { get set }
     var capacityFuelTank: Int { get set }
-    var countCar: Int { get set }
-    associatedtype ColorEnum
-    associatedtype TransmissionEnum
+    var color: Color { get set }
     
     func Honk()
-    func getInfo()
-    func countInfo()
-    
-    func actionWindow()
-    func actionDoor()
+//    func getInfo()
 }
 
 extension Car {
@@ -57,15 +47,78 @@ extension Car {
         }
     }
     
-    func actionDoor(action: ActionDoor) {
+    func actionEngine(action: ActionEngine) {
         switch action {
-        case .open:
-            print("Дверь открыта")
-        case .close:
-            print("Дверь закрыта")
+        case .start:
+            print("Двигатель запущен")
+        case .stop:
+            print("Двигатель выключен")
         }
+    }
+    
+    func Honk() {
+        print("Звучит сигнал реализованный в суперклассе Car\n")
     }
 }
 
-var color: Color
-var transmission: Transmission
+class TrunkCar: Car {
+    
+    enum Trailer: String {
+        case yes = "прицеп есть", no = "прицеп отстутствует"
+    }
+    
+    var brand: String
+    var capacityFuelTank: Int
+    var color: Color
+    
+    // Индивидуальное свойство класса trunkCar
+    var isHasTrailer: Trailer
+    
+    init(brand: String, capacityFuelTank: Int, color: Color, isHasTrailer: Trailer) {
+        self.brand = brand
+        self.capacityFuelTank = capacityFuelTank
+        self.color = color
+        self.isHasTrailer = isHasTrailer
+    }
+    
+}
+
+extension TrunkCar: CustomStringConvertible {
+        var description : String {
+            return "Грузовик \(self.brand) с цветом \(self.color.rawValue) имеет емкость бака равную \(self.capacityFuelTank). Статус прицепа - \(self.isHasTrailer.rawValue)\n"
+    }
+}
+
+class SportCar: Car {
+    
+    enum Spoiler: String {
+        case yes = "спойлер есть", no = "спойлер отстутствует"
+    }
+    
+    var brand: String
+    var capacityFuelTank: Int
+    var color: Color
+    
+    // Индивидуальное свойство класса sportCar
+    var isHasSpoiler: Spoiler
+    
+    init(brand: String, capacityFuelTank: Int, color: Color, isHasSpoiler: Spoiler) {
+        self.brand = brand
+        self.capacityFuelTank = capacityFuelTank
+        self.color = color
+        self.isHasSpoiler = isHasSpoiler
+    }
+    
+}
+
+extension SportCar: CustomStringConvertible {
+    var description : String {
+        return "Спортивания машина \(self.brand) с цветом \(self.color.rawValue) имеет емкость бака равную \(self.capacityFuelTank). Наличие спойлера - \(self.isHasSpoiler.rawValue)\n"
+    }
+}
+
+let trunk01 = TrunkCar(brand: "MAN", capacityFuelTank: 350, color: .green, isHasTrailer: .yes)
+print(trunk01)
+
+let sportCar01 = SportCar(brand: "BMW", capacityFuelTank: 135, color: .black, isHasSpoiler: .no)
+print(sportCar01)
