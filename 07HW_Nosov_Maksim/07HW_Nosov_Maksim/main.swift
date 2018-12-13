@@ -53,7 +53,3 @@ do {
 } catch GroupOfStudentsError.notFound {
     print("Студент не найден")
 }
-
-
-
-
